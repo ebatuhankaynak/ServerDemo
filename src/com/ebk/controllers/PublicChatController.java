@@ -33,6 +33,7 @@ public class PublicChatController implements Initializable{
     public PublicChatController(){
         participantList = new ArrayList<>();
         participantList.add(Storage.getUsername());
+        participantList.add("Mahmut");
 
         //reader = new BufferedReader(new InputStreamReader());
 
@@ -84,11 +85,11 @@ public class PublicChatController implements Initializable{
 
         Optional<String> result = textInputDialog.showAndWait();
         if (result.isPresent()){
-            String participant = result.toString().substring(9, 11);
+            String participant = result.toString().substring(9, result.toString().length() - 1);
+            System.out.print(participant);
             if (userInParticipantList(participant)){
                 if (Storage.getPrivateChatController() == null) {
                     new Transition().openInNewStage(FXMLList.PRIVATE_CHAT);
-
                     Storage.getPrivateChatController().init(participant);
                 }else{
                     Storage.getPrivateChatController().updateTabPane(participant);
