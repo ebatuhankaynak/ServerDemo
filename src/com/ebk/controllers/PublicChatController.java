@@ -84,8 +84,15 @@ public class PublicChatController implements Initializable{
 
         Optional<String> result = textInputDialog.showAndWait();
         if (result.isPresent()){
-            if (userInParticipantList(result.toString().substring(9, 11))){
-                new Transition().openInNewStage(FXMLList.PRIVATE_CHAT);
+            String participant = result.toString().substring(9, 11);
+            if (userInParticipantList(participant)){
+                if (Storage.getPrivateChatController() == null) {
+                    new Transition().openInNewStage(FXMLList.PRIVATE_CHAT);
+
+                    Storage.getPrivateChatController().init(participant);
+                }else{
+                    Storage.getPrivateChatController().updateTabPane(participant);
+                }
             }else{
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("No Such Participant");
