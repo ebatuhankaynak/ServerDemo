@@ -2,8 +2,12 @@ package com.ebk.controllers;
 
 import com.ebk.Storage;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+
+import java.io.IOException;
 
 /**
  * Created by E.Batuhan Kaynak on 13.6.2016.
@@ -19,7 +23,21 @@ public class PrivateChatController {
     }
 
     public void updateTabPane(String participant){
+
+        /*
+        try {
+            tabPane.getTabs().add(FXMLLoader.load(this.getClass().getResource("../resources/Tab.fxml")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+
         final Tab tab = new Tab(participant);
+        try {
+            tab.setContent(FXMLLoader.load(this.getClass().getResource("../resources/Tab.fxml")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().select(tab);
     }
