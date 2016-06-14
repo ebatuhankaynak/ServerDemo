@@ -5,10 +5,7 @@ import com.ebk.Storage;
 import com.ebk.Transition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.io.BufferedReader;
@@ -26,9 +23,10 @@ public class PublicChatController implements Initializable{
     //BufferedReader reader;
     //WSocket wsocket = new WSocket();
 
-    @FXML TextArea participantListArea;
+    //@FXML TextArea participantListArea;
     @FXML TextArea messageDisplayArea;
     @FXML TextArea messageTextArea;
+    @FXML ListView<String> participantListArea;
 
     public PublicChatController(){
         participantList = new ArrayList<>();
@@ -51,11 +49,9 @@ public class PublicChatController implements Initializable{
     }
 
     public void updateParticipantsArea(){
-        String list = "";
         for (int i = 0; i < participantList.size(); i++){
-            list = list + participantList.get(i) + "\n";
+            participantListArea.getItems().add(participantList.get(i));
         }
-        participantListArea.setText(list);
     }
 
     public boolean userInParticipantList(String username){
@@ -77,6 +73,12 @@ public class PublicChatController implements Initializable{
     }
 
     @FXML
+    public void onListViewItemClick(MouseEvent mouseEvent){
+        String participant = participantListArea.getSelectionModel().getSelectedItem();
+        startPrivateChat(participant);
+    }
+
+    @FXML
     public void onPrivateChatButtonClick(MouseEvent mouseEvent){
         TextInputDialog textInputDialog = new TextInputDialog();
         textInputDialog.setTitle("Private Chat");
@@ -86,28 +88,30 @@ public class PublicChatController implements Initializable{
         Optional<String> result = textInputDialog.showAndWait();
         if (result.isPresent()){
             String participant = result.toString().substring(9, result.toString().length() - 1);
-            System.out.print(participant);
-            if (userInParticipantList(participant)){
-                if (Storage.getPrivateChatController() == null) {
-                    new Transition().openInNewStage(FXMLList.PRIVATE_CHAT);
-                    Storage.getPrivateChatController().init(participant);
-                }else{
-                    Storage.getPrivateChatController().updateTabPane(participant);
-                }
-            }else{
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("No Such Participant");
-                alert.setHeaderText("We could not find a participant with that username :(");
-                ButtonType okButton =  new ButtonType("Ok!");
-                alert.getButtonTypes().setAll(okButton);
-
-                Optional<ButtonType> result2 = alert.showAndWait();
-                if (result2.get() == okButton) {
-                }
-            }
+            startPrivateChat(participant);
         }
     }
 
+    public void startPrivateChat(String participant){
+        if (userInParticipantList(participant)){
+            if (Storage.getPrivateChatController() == null) {
+                new Transition().openInNewStage(FXMLList.PRIVATE_CHAT);
+                Storage.getPrivateChatController().init(participant);
+            }else{
+                Storage.getPrivateChatController().updateTabPane(participant);
+            }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Such Participant");
+            alert.setHeaderText("We could not find a participant with that username :(");
+            ButtonType okButton =  new ButtonType("Ok!");
+            alert.getButtonTypes().setAll(okButton);
+
+            Optional<ButtonType> result2 = alert.showAndWait();
+            if (result2.get() == okButton) {
+            }
+        }
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updateParticipantsArea();

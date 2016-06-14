@@ -28,14 +28,10 @@
                      </font></Label>
                </children>
             </HBox>
-            <TextArea fx:id="participantListArea" editable="false" prefHeight="476.0" prefWidth="225.0">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </TextArea>
+            <ListView onMouseClicked="#onListViewItemClick" fx:id="participantListArea" prefHeight="545.0" prefWidth="225.0" />
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button onMouseClicked="#onPrivateChatButtonClick" mnemonicParsing="false" text="Start Private Chat" />
+                  <Button mnemonicParsing="false" onMouseClicked="#onPrivateChatButtonClick" text="Start Private Chat" />
                </children>
                <padding>
                   <Insets top="10.0" />
@@ -60,7 +56,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="sendButton" onMouseClicked="#onSendButtonClick" mnemonicParsing="false" text="Send" />
+                  <Button fx:id="sendButton" mnemonicParsing="false" onMouseClicked="#onSendButtonClick" text="Send" />
                </children>
                <padding>
                   <Insets left="10.0" />

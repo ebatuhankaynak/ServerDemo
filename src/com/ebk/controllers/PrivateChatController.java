@@ -31,6 +31,7 @@ public class PrivateChatController {
         }
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().select(tab);
+        tabPane.getScene().getWindow().requestFocus();
     }
 
     public void init(String participant){
