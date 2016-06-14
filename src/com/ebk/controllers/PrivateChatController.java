@@ -24,17 +24,9 @@ public class PrivateChatController {
 
     public void updateTabPane(String participant){
 
-        /*
-        try {
-            tabPane.getTabs().add(FXMLLoader.load(this.getClass().getResource("../resources/Tab.fxml")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-
         final Tab tab = new Tab(participant);
         try {
-            tab.setContent(FXMLLoader.load(this.getClass().getResource("../resources/Tab.fxml")));
+            tab.setContent((Node) FXMLLoader.load(this.getClass().getResource("../resources/Tab.fxml")));
         } catch (IOException e) {
             e.printStackTrace();
         }
