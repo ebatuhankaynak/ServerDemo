@@ -23,7 +23,6 @@ public class PrivateChatController {
     }
 
     public void updateTabPane(String participant){
-
         final Tab tab = new Tab(participant);
         try {
             tab.setContent((Node) FXMLLoader.load(this.getClass().getResource("../resources/Tab.fxml")));
