@@ -35,6 +35,5 @@ public class MainController {
             Storage.setUsername(username);
             new Transition().changeScene(mouseEvent, FXMLList.PUBLIC_CHAT, 900, 600);
         }
-
     }
 }

@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
-import java.io.BufferedReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -20,10 +19,7 @@ import java.util.ResourceBundle;
 public class PublicChatController implements Initializable{
 
     private ArrayList<String> participantList;
-    //BufferedReader reader;
-    //WSocket wsocket = new WSocket();
 
-    //@FXML TextArea participantListArea;
     @FXML TextArea messageDisplayArea;
     @FXML TextArea messageTextArea;
     @FXML ListView<String> participantListArea;
@@ -33,19 +29,7 @@ public class PublicChatController implements Initializable{
         participantList.add(Storage.getUsername());
         participantList.add("Mahmut");
 
-        //reader = new BufferedReader(new InputStreamReader());
-
         getParticipantsFromServer();
-
-        //wsocket.through(new DiscardCommunication());
-
-        Thread incomingMessageThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String message;
-
-            }
-        });
     }
 
     public void updateParticipantsArea(){

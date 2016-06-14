@@ -1,11 +1,13 @@
 package com.ebk.controllers;
 
 import com.ebk.Storage;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -13,8 +15,6 @@ import java.io.IOException;
  * Created by E.Batuhan Kaynak on 13.6.2016.
  */
 public class PrivateChatController {
-
-    //private static PrivateChatController instance = null;
 
     @FXML TabPane tabPane;
 
@@ -31,6 +31,13 @@ public class PrivateChatController {
         }
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().select(tab);
+
+        tabPane.getScene().getWindow().setOnHiding(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Storage.setPrivateChatController(null);
+            }
+        });
         tabPane.getScene().getWindow().requestFocus();
     }
 
